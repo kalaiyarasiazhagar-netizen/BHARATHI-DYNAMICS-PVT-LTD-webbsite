@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHARATHI DYNAMICS | Strategic Defence & Aerospace Systems</title>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #01040A;
+            --navy-brand: #0A2A47;
+            --cyan-tech: #00D4FF;
+            --text-gray: #94A3B8;
+            --airbus-blue: #00122e;
+            --border: rgba(0, 212, 255, 0.15);
+            --glass: rgba(10, 42, 71, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; line-height: 1.8; overflow-x: hidden; }
+        
+        .mono { font-family: 'JetBrains Mono', monospace; color: var(--cyan-tech); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; }
+        .heading { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 5px; }
+
+        /* Navigation */
+        nav {
+            position: fixed; width: 100%; z-index: 1000;
+            padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(1, 4, 10, 0.95); border-bottom: 1px solid var(--border); backdrop-filter: blur(15px);
+        }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 0.65rem; font-family: 'Syncopate'; margin-left: 2.5rem; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--cyan-tech); }
+
+        /* Hero */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; position: relative;
+            background: linear-gradient(rgba(1, 4, 10, 0.4), rgba(1, 4, 10, 0.95)), 
+                        url('https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2000&auto=format&fit=crop') center/cover;
+        }
+        .hero-logo { width: 140px; height: 140px; margin-bottom: 2rem; filter: drop-shadow(0 0 25px rgba(0,212,255,0.4)); }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 6.5rem); margin: 0.5rem 0; line-height: 0.9; color: #fff; font-weight: 800; }
+        .hero .tagline { font-family: 'Syncopate'; font-size: 1.2rem; color: var(--cyan-tech); letter-spacing: 12px; opacity: 0.7; }
+
+        /* Data Strip */
+        .data-strip { background: var(--navy-brand); padding: 20px 8%; display: flex; justify-content: space-between; border-bottom: 3px solid var(--cyan-tech); position: relative; z-index: 10; }
+
+        /* Sections */
+        section { padding: 120px 10%; border-bottom: 1px solid var(--border); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: flex-start; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+        
+        h2.section-title { font-size: 3.2rem; line-height: 1.1; margin-bottom: 2rem; color: #fff; }
+        p.main-body { font-size: 1.15rem; color: var(--text-gray); margin-bottom: 2rem; }
+
+        /* Professional Visual Frames */
+        .visual-frame { width: 100%; height: 600px; border: 1px solid var(--border); overflow: hidden; position: relative; background: #000; margin-bottom: 4rem; }
+        .visual-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; filter: grayscale(0.2) contrast(1.1); transition: 1.2s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .visual-frame:hover img { opacity: 1; transform: scale(1.03); }
+        .hud-corner { position: absolute; width: 30px; height: 30px; border: 3px solid var(--cyan-tech); z-index: 5; }
+        .tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+        .br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+
+        /* Content Modules */
+        .tech-card { background: var(--glass); padding: 3rem; border: 1px solid var(--border); transition: 0.4s; }
+        .tech-card:hover { border-color: var(--cyan-tech); transform: translateY(-10px); background: rgba(0, 212, 255, 0.05); }
+        .tech-card h3 { font-family: 'Syncopate'; font-size: 0.9rem; color: var(--cyan-tech); margin-bottom: 1.5rem; }
+
+        /* Leadership Block */
+        .leadership-hero { background: var(--navy-brand); padding: 5rem; border-left: 8px solid var(--cyan-tech); margin: 4rem 0; }
+        .leadership-hero h3 { font-family: 'Syncopate'; font-size: 2.5rem; margin-bottom: 1rem; }
+        .leadership-hero h4 { font-family: 'Syncopate'; font-size: 0.8rem; color: var(--cyan-tech); margin-bottom: 2rem; letter-spacing: 5px; }
+
+        /* Airbus Footer */
+        .airbus-footer { background: var(--airbus-blue); padding: 100px 10% 50px; border-top: 4px solid var(--navy-brand); position: relative; z-index: 10; }
+        .f-logo { font-family: 'Syncopate'; font-size: 3.5rem; letter-spacing: 8px; margin-bottom: 2rem; color: #fff; font-weight: 800; }
+        .social-circles { display: flex; gap: 15px; margin: 40px 0; }
+        .social-circles a { 
+            width: 60px; height: 60px; border: 1px solid rgba(255,255,255,0.2); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.5rem; color: #fff; text-decoration: none; transition: 0.3s; 
+        }
+        .social-circles a:hover { border-color: var(--cyan-tech); color: var(--cyan-tech); background: rgba(0, 212, 255, 0.1); }
+        .contact-btn { background: #fff; color: var(--airbus-blue); padding: 1.2rem 4rem; border: none; font-weight: 700; font-family: 'Inter'; font-size: 1rem; border-radius: 4px; cursor: pointer; margin-bottom: 60px; transition: 0.3s; }
+        .contact-btn:hover { background: var(--cyan-tech); }
+
+        @media (max-width: 1024px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .hero h1 { font-size: 3.5rem; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="heading" style="font-size: 0.8rem;">BHARATHI <span style="color:var(--cyan-tech)">DYNAMICS</span></div>
+        <div class="nav-links">
+            <a href="#about">Corporate</a>
+            <a href="#strategic">Strategic</a>
+            <a href="#innovation">Innovation</a>
+            <a href="#contact">Terminal</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <svg class="hero-logo" viewBox="0 0 100 100">
+            <path d="M50 5L95 85H5L50 5Z" fill="#0A2A47"/>
+            <circle cx="50" cy="55" r="35" stroke="white" stroke-width="2"/>
+            <path d="M50 25L55 65H45 L50 25Z" fill="white"/>
+            <path d="M42 65L50 60L58 65L50 85L42 65Z" fill="white"/>
+            <text x="32" y="62" fill="white" font-family="Arial" font-weight="bold" font-size="12">B</text>
+            <text x="58" y="62" fill="white" font-family="Arial" font-weight="bold" font-size="12">D</text>
+        </svg>
+        <h1 class="heading">BHARATHI DYNAMICS</h1>
+        <div class="tagline">PRIVATE LIMITED</div>
+        <p class="mono" style="margin-top: 2rem; opacity: 0.6; letter-spacing: 5px;">Advancing Global Air Superiority through Indigenous Precision</p>
+    </section>
+
+    <!-- TECHNICAL ID STRIP -->
+    <div class="data-strip mono">
+        <div>REG: UDYAM-TN-03-0294495</div>
+        <div>NIC: 72100 (DEFENCE R&D)</div>
+        <div>CLASSIFICATION: MICRO (2025-26)</div>
+        <div>LOC: POLLACHI, IN</div>
+    </div>
+
+    <!-- MISSION SECTION (Aircraft Visual 1: Fighter Jet) -->
+    <section id="about">
+        <div class="visual-frame">
+            <div class="hud-corner tl"></div><div class="hud-corner br"></div>
+       <img src="C:\Users\bhuva\Downloads\jonathan-ridley-UgrU3AlHYo8-unsplash.jpg">
+        </div>
+
+        <div class="grid-2">
+            <div class="text-block">
+                <span class="mono">Strategic Mandate</span>
+                <h2 class="section-title heading">Sovereign <span style="color:var(--cyan-tech)">Aerospace</span> Autonomy.</h2>
+                <p class="main-body">BHARATHI DYNAMICS PRIVATE LIMITED (BDPL) is a specialized defence engineering entity focused on the indigenization of high-performance air-defence frameworks and unmanned tactical platforms. Operating at the critical intersection of aerospace hardware and autonomous software intelligence, BDPL serves as a catalyst for sovereign strategic superiority.</p>
+                <p class="main-body">Our mandate is rooted in the "Make in India" initiative, ensuring that our national security infrastructure is not only robust but technologically superior to evolving global threats. We bridge the gap between abstract research and battlefield-ready hardware.</p>
+            </div>
+            <div style="background: var(--navy-brand); padding: 4rem; border-left: 8px solid var(--cyan-tech);">
+                <h3 class="heading" style="font-size: 0.9rem; margin-bottom: 2rem;">Pollachi HQ Hub</h3>
+                <p style="font-size: 1rem; line-height: 2.2; opacity: 0.9;">
+                    CPS COMPLEX, 2/271-2,<br>
+                    Pulliampatty, Pollachi North,<br>
+                    Coimbatore, Tamil Nadu - 642002.<br>
+                    <span style="color:var(--cyan-tech)">Security Status: Operational Hub</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- OPERATIONAL DOMAINS (Visual 2: Missile Defense) -->
+    <section id="strategic" style="background: #02060E;">
+        <div class="visual-frame">
+            <div class="hud-corner tl"></div><div class="hud-corner br"></div>
+            <img src="C:\Users\bhuva\Downloads\thumb-1920-684140.jpg"
+        </div>
+
+        <div class="grid-3">
+            <div class="tech-card">
+                <h3>Kinetic Air Defence</h3>
+                <p>Development of ground-to-air guidance protocols and rapid-response interceptors for subsonic and supersonic threat neutralization.</p>
+            </div>
+            <div class="tech-card">
+                <h3>Autonomous UAS</h3>
+                <p>Engineering long-endurance stealth drones for ISR missions, featuring AI-driven swarm intelligence and carbon-composite airframes.</p>
+            </div>
+            <div class="tech-card">
+                <h3>C4ISR Data Fusion</h3>
+                <p>Integrating multi-band satellite data and ground radar into secure, real-time command terminals for battlefield situational awareness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP (Sai Saran) -->
+    <section id="leadership">
+        <div class="leadership-hero">
+            <span class="mono">Strategic Leadership</span>
+            <h3>SAI SARAN</h3>
+            <h4>Co-Founder & Strategic Lead</h4>
+            <p class="main-body" style="font-style: italic; opacity: 0.8; max-width: 800px;">
+                "At Bharathi Dynamics, we are engineering the future of India's strategic autonomy. Through high-fidelity R&D and indigenous innovation, we empower our armed forces with the technology required for 21st-century sovereignty. Our focus remains the seamless integration of hardware precision and autonomous logic."
+            </p>
+            <div style="margin-top: 3rem;">
+                <a href="https://www.linkedin.com/company/bharathi-dynamicspvtltd/" target="_blank" class="mono" style="text-decoration: none; border: 2px solid var(--cyan-tech); padding: 15px 30px; background: rgba(0,212,255,0.05);">Official LinkedIn Profile</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATION LABS (Visual 3: Command Center) -->
+    <section id="innovation" style="background: #02060E;">
+        <div class="visual-frame">
+            <div class="hud-corner tl"></div><div class="hud-corner br"></div>
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" alt="Global Strategic Command Hub">
+        </div>
+
+        <div class="grid-2">
+            <div class="text-block">
+                <span class="mono">// NIC 72100 COMPLIANCE</span>
+                <h2 class="section-title heading">Experimental <br>Aerospace <span style="color:var(--cyan-tech)">Labs.</span></h2>
+                <p class="main-body">Our Pollachi North research facility is specialized for experimental development in aerodynamic stress testing, propulsion dynamics, and electronic counter-measure (ECM) shielding.</p>
+            </div>
+            <div class="text-block">
+                <p class="main-body">We maintain rigorous testing protocols for signal intelligence (SIGINT) hardware and composite material durability, ensuring every indigenized component meets the extreme reliability standards of modern defence procurement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEFENSE IMAGE GRID (Additional 4 Visuals) -->
+    <section style="padding: 50px 10%;">
+        <div class="grid-2">
+            <div class="visual-frame" style="height: 350px;"><div class="hud-corner tl"></div><img src="C:\Users\bhuva\Downloads\Screenshot 2024-12-11 163709.jpg"></div>
+            <div class="visual-frame" style="height: 350px;"><div class="hud-corner tl"></div><img src="C:\Users\bhuva\Downloads\Radar_Systems_Certificate_Feature_950x950.jpg" alt="Radar Array"></div>
+            <div class="visual-frame" style="height: 350px;"><div class="hud-corner tl"></div><img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=1000" alt="Stealth UAV"></div>
+            <div class="visual-frame" style="height: 350px;"><div class="hud-corner tl"></div><img src="C:\Users\bhuva\Downloads\how-many-dedicated-interceptors-remain-and-are-they-still-relevant-1754060081.jpg" alt="Interceptor Silhouette"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT TERMINAL -->
+    <section id="contact">
+        <div class="grid-2">
+            <div>
+                <span class="mono">Secure Terminal</span>
+                <h2 class="section-title heading">Initialize <br>Transmission.</h2>
+                <p class="main-body">Authorized for official government procurement, industrial R&D partnerships, or strategic briefing requests. Please provide a detailed mission summary for specialized attention.</p>
+                <div class="lowercase" style="line-height: 2.8; font-size: 0.9rem;">
+                    EMAIL: bharathidynamicshq@gmail.com<br>
+                    TEL: +91 93452 23860<br>
+                    LOC: Pollachi, Coimbatore, TN, IN
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 4rem;">
+                <form>
+                    <input type="text" placeholder="ENTITY / ORGANIZATION NAME" style="width:100%; background:#050a12; border:1px solid var(--border); padding:1.2rem; color:#fff; margin-bottom:1.5rem; outline:none;">
+                    <input type="email" placeholder="OFFICIAL EMAIL" style="width:100%; background:#050a12; border:1px solid var(--border); padding:1.2rem; color:#fff; margin-bottom:1.5rem; outline:none;">
+                    <textarea rows="5" placeholder="MISSION DESCRIPTION / NATURE OF INQUIRY" style="width:100%; background:#050a12; border:1px solid var(--border); padding:1.2rem; color:#fff; margin-bottom:1.5rem; outline:none; font-family:'Inter';"></textarea>
+                    <button class="btn-send">Send Briefing Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- AIRBUS MASTER FOOTER -->
+    <footer class="airbus-footer">
+        <div class="f-logo heading">BHARATHI DYNAMICS</div>
+        <p style="font-size: 1.2rem; opacity: 0.9; font-weight: 300; margin-bottom: 25px;">Let's stay in touch</p>
+        
+        <div class="social-circles">
+            <a href="https://www.linkedin.com/company/bharathi-dynamicspvtltd/" target="_blank" title="Official LinkedIn Profile">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+
+        <button class="contact-btn">Contact us</button>
+
+        <div class="accordion-item"><span>Connected websites</span> <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.5;"></i></div>
+        <div class="accordion-item"><span>Customer Portals</span> <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.5;"></i></div>
+        <div class="accordion-item"><span>Useful links</span> <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.5;"></i></div>
+
+        <div class="legal-row">
+            <span>Privacy policy</span>
+            <span>Terms of use</span>
+            <span>Accessibility: Partially compliant</span>
+            <span>Modern Slavery Statement</span>
+        </div>
+        
+        <div style="margin-top: 60px; opacity: 0.3; font-size: 0.7rem;" class="mono">
+            © 2026 BHARATHI DYNAMICS PRIVATE LIMITED. UDYAM-TN-03-0294495. ALL SYSTEMS SECURED.
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('section').forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: { trigger: section, start: "top 85%" },
+                opacity: 0, y: 50, duration: 1
+            });
+        });
+    </script>
+</body>
+</html>
